@@ -1,0 +1,38 @@
+package com.crc.ponto.model;
+
+import lombok.*;
+import org.hibernate.envers.Audited;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode
+@Builder
+@Entity
+@Audited  //como essa tabela se relaciona com outras, tenho que colocar auditoria nas outras tbm
+public class Usuario {
+    @Id
+    private Long id;
+    @ManyToOne //muitos p 1. muitos usuarios t 1 categ.
+    private CategoriaUsuario categoriaUsuario;
+    private String nome;
+
+    //aqui vai ter relac. com empresa
+    @ManyToOne
+    private Empresa empresa;
+    @ManyToOne
+    private NivelAcesso nivelAcesso;
+    @ManyToOne
+    private JornadaTrabalho jornadaTrabalho;
+    private BigDecimal tolerancia; // se for double ou float pode ter inconsistencia no banco
+    private LocalDateTime inicioJornada;
+    private LocalDateTime finalJornada;
+}

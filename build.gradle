@@ -1,0 +1,53 @@
+plugins {
+	id 'org.springframework.boot' version '2.3.2.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+	id 'java'
+}
+
+group = 'com.crc'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+
+	//core de dependencias do spring jpa para trab. injecao depend. web para conf. spring mvc devtol auto config
+	implementation 'org.springframework.boot:spring-boot-starter'
+
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+	//jackson responsavel por fazer o parse ex json para obj. java e vise versa autom.
+	compile group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-xml', version:'2.9.7'
+
+	//ja vai fica config. se quiser usar depois mas o ex. vamos usar h2
+	runtimeOnly 'mysql:mysql-connector-java'
+
+	// ajuda a kodar desenv. mais rapido
+	compileOnly 'org.projectlombok:lombok:1.18.10'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	implementation 'com.h2database:h2'
+
+	//vai servir para documentar a api
+	compile group: 'io.springfox', name: 'springfox-swagger2', version:'2.9.2'
+	compile group: 'io.springfox', name: 'springfox-swagger-ui', version:'2.9.2'
+	compile group: 'io.springfox', name: 'springfox-bean-validators', version:'2.9.2'
+
+	//vai servir para fazer auditoria, controlar regras de negoicio trigger
+	compile group: 'org.hibernate', name: 'hibernate-envers', version:'5.4.17.Final'
+	compile group: 'org.hibernate', name: 'hibernate-validator', version:'6.1.5.Final'
+
+  //serve fazer testes na aplicacao seja com junit ou outra ferramenta
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+}
+
+test {
+	useJUnitPlatform()
+}
